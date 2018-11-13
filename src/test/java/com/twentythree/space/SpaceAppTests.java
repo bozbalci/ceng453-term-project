@@ -1,4 +1,4 @@
-package com.ceng453.group23.termProject;
+package com.twentythree.space;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TermProjectApplicationTests {
+public class SpaceAppTests {
 
 	@Test
 	public void contextLoads() {
