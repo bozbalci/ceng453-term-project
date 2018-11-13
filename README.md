@@ -9,4 +9,4 @@ CENG453 term project repository for group 23
 * Checked DB connectivity ✅
 * Created Git repository ✅
 * Berk Özbalcı submitted a commit ✅
-* Doruk Coşkun submitted a commit ☑️
+* Doruk Coşkun submitted a commit ✅
