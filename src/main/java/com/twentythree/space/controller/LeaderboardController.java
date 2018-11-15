@@ -1,5 +1,6 @@
 package com.twentythree.space.controller;
 
+import com.twentythree.space.constants.SpaceAppConstants;
 import com.twentythree.space.entity.Player;
 import com.twentythree.space.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,11 @@ public class LeaderboardController {
 
     @GetMapping("/weekly")
     List<Object[]> getSevenDaysLeaderboard() {
-        return matchRepository.getSevenDaysLeaderboard(10);
+        return matchRepository.getSevenDaysLeaderboard(SpaceAppConstants.LEADERBOARD_WEEKLY_LIMIT);
     }
 
     @GetMapping("/all")
     List<Object[]> getAllTimeLeaderboard() {
-        return matchRepository.getSevenDaysLeaderboard(10);
+        return matchRepository.getSevenDaysLeaderboard(SpaceAppConstants.LEADERBOARD_ALL_TIME_LIMIT);
     }
 }
