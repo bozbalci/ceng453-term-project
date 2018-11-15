@@ -37,7 +37,8 @@ public class Match {
 
     protected Match() {}
 
-    public Match(long matchId, Player player, MatchType matchType, long score, Date createdAt) {
+    public Match(long matchId, Player player, MatchType matchType, long score,
+                 Date createdAt) {
         this.matchId = matchId;
         this.player = player;
         this.matchType = matchType;
