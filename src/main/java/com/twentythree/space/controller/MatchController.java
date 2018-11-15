@@ -9,6 +9,8 @@ import com.twentythree.space.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/match")
 public class MatchController {
@@ -17,6 +19,9 @@ public class MatchController {
 
     @Autowired
     private PlayerRepository playerRepository;
+
+    @GetMapping("/")
+    List<Match> getAllMatches() {return matchRepository.findAll();}
 
     @PostMapping("/")
     Match createMatch(@RequestBody Match match) {
@@ -37,5 +42,10 @@ public class MatchController {
 
         return matchRepository.findByMatchIdAndPlayer(matchId, player)
                 .orElseThrow(() -> new MatchNotFoundException((matchId)));
+    }
+
+    @DeleteMapping("/{id}")
+    void deleteMatch(@PathVariable long id) {
+        matchRepository.deleteById(id);
     }
 }
