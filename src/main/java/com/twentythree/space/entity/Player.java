@@ -11,7 +11,7 @@ public class Player {
     @Column(name = "id")
     long id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     String name;
 
     @OneToMany(mappedBy = "player")
