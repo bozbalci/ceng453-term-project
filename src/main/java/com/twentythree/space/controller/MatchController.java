@@ -9,6 +9,8 @@ import com.twentythree.space.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class MatchController {
     @Autowired
@@ -16,11 +18,11 @@ public class MatchController {
 
     @Autowired
     private PlayerRepository playerRepository;
+    
+    @GetMapping("/match")
+    List<Match> getAllMatches() {return matchRepository.findAll();}
 
-    @PostMapping("/match")
-    Match createMatch(@RequestBody Match match) {
-        return matchRepository.save(match);
-    }
+
 
     @GetMapping("/match/{matchId}/{playerId}")
     Match getMatch(@PathVariable long matchId, @PathVariable long playerId) {
@@ -29,5 +31,10 @@ public class MatchController {
 
         return matchRepository.findByMatchIdAndPlayer(matchId, player)
                 .orElseThrow(() -> new MatchNotFoundException((matchId)));
+    }
+
+    @DeleteMapping("/match/{id}")
+    void deleteMatch(@PathVariable long id) {
+        matchRepository.deleteById(id);
     }
 }
