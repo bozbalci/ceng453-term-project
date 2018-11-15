@@ -41,6 +41,9 @@ public class PlayerController {
 
     @DeleteMapping("/player/{id}")
     void deletePlayer(@PathVariable long id) {
+        playerRepository.findById(id)
+                .orElseThrow(() -> new PlayerNotFoundException(id));
+
         playerRepository.deleteById(id);
     }
 }

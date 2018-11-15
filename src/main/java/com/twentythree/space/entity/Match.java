@@ -20,7 +20,8 @@ public class Match {
     long matchId;
 
     @ManyToOne
-    @JoinColumn(name = "player_id")
+    @JoinColumn(name = "player_id", nullable = false)
+    @MapsId
     Player player;
 
     @Enumerated

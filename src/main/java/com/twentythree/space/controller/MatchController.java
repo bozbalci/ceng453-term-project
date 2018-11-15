@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/match")
 public class MatchController {
     @Autowired
     private MatchRepository matchRepository;
@@ -17,12 +18,19 @@ public class MatchController {
     @Autowired
     private PlayerRepository playerRepository;
 
-    @PostMapping("/match")
+    @PostMapping("/")
     Match createMatch(@RequestBody Match match) {
+        long playerId = match.getPlayer().getId();
+
+        Player player = playerRepository.findById(playerId)
+                .orElseThrow(() -> new PlayerNotFoundException((playerId)));
+
+        match.setPlayer(player);
+
         return matchRepository.save(match);
     }
 
-    @GetMapping("/match/{matchId}/{playerId}")
+    @GetMapping("/{matchId}/{playerId}")
     Match getMatch(@PathVariable long matchId, @PathVariable long playerId) {
         Player player = playerRepository.findById(playerId)
                 .orElseThrow(() -> new PlayerNotFoundException((playerId)));

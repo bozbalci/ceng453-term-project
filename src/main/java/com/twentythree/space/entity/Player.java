@@ -1,6 +1,7 @@
 package com.twentythree.space.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "player")
@@ -12,6 +13,9 @@ public class Player {
 
     @Column(name = "name")
     String name;
+
+    @OneToMany(mappedBy = "player")
+    List<Match> matchList;
 
     protected Player() {}
 
