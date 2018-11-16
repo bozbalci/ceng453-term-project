@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface MatchRepository extends JpaRepository<Match, Long> {
     Optional<Match> findByMatchIdAndPlayer(long matchId, Player player);
 
-    @Query(value = "SELECT p.name, SUM(gm.score) as total_score\n" +
+    @Query(value = "SELECT p.username, SUM(gm.score) as total_score\n" +
             "FROM game_match gm\n" +
             "INNER JOIN player p\n" +
             "ON gm.player_id = p.id\n" +
@@ -23,7 +23,7 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
             "LIMIT :limit", nativeQuery = true)
     List<Object[]> getAllTimeLeaderboard(@Param("limit") long limit);
 
-    @Query(value = "SELECT p.name, SUM(gm.score) as total_score\n" +
+    @Query(value = "SELECT p.username, SUM(gm.score) as total_score\n" +
             "FROM game_match gm\n" +
             "INNER JOIN player p\n" +
             "ON gm.player_id = p.id\n" +

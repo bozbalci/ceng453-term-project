@@ -8,4 +8,8 @@ public class PlayerNotFoundException extends RuntimeException {
     public PlayerNotFoundException(long id) {
         super(String.format("Player Not Found: %d", id));
     }
+
+    public PlayerNotFoundException(String username) {
+        super(String.format("Player Not Found: %s", username));
+    }
 }

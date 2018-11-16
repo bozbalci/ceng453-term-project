@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "game_match",
-        uniqueConstraints = @UniqueConstraint(columnNames =
+       uniqueConstraints = @UniqueConstraint(columnNames =
                 {"match_id", "player_id"}))
 public class Match {
     @Id
@@ -21,7 +21,6 @@ public class Match {
 
     @ManyToOne
     @JoinColumn(name = "player_id", nullable = false)
-    @MapsId
     Player player;
 
     @Enumerated
