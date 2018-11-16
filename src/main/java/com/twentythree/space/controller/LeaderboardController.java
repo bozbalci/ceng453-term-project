@@ -22,6 +22,6 @@ public class LeaderboardController {
 
     @GetMapping("/all")
     List<Object[]> getAllTimeLeaderboard() {
-        return matchRepository.getSevenDaysLeaderboard(SpaceAppConstants.LEADERBOARD_ALL_TIME_LIMIT);
+        return matchRepository.getAllTimeLeaderboard(SpaceAppConstants.LEADERBOARD_ALL_TIME_LIMIT);
     }
 }

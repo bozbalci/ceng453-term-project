@@ -1,9 +1,12 @@
 package com.twentythree.space.controller;
 
 import com.twentythree.space.entity.Player;
+import com.twentythree.space.exception.ForbiddenException;
 import com.twentythree.space.exception.PlayerNotFoundException;
 import com.twentythree.space.repository.PlayerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,9 +16,16 @@ public class PlayerController {
     @Autowired
     private PlayerRepository playerRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostMapping("/player")
-    Player createPlayer(@RequestBody Player player) {
-        return playerRepository.save(player);
+    long createPlayer(@RequestParam("username") String username,
+                        @RequestParam("password") String password) {
+        String encodedPassword = passwordEncoder.encode(password);
+
+        final Player created = playerRepository.save(new Player(username, encodedPassword));
+        return created.getId();
     }
 
     @GetMapping("/player")
@@ -24,9 +34,23 @@ public class PlayerController {
     }
 
     @GetMapping("/player/{id}")
-    Player getPlayer(@PathVariable long id) {
-        return playerRepository.findById(id)
-                .orElseThrow(() -> new PlayerNotFoundException(id));
+    Player getPlayer(@PathVariable long id, Authentication auth) {
+        final Player player = (Player) auth.getPrincipal();
+
+        System.out.println(player.getId());
+
+        if (auth == null) {
+            throw new ForbiddenException();
+        }
+
+        if (player.getId() == id) {
+            return player;
+        } else if ("ADMIN".equals(player.getRole())) {
+            return playerRepository.findById(id)
+                    .orElseThrow(() -> new PlayerNotFoundException(id));
+        } else {
+            throw new ForbiddenException();
+        }
     }
 
     @PutMapping("/player")
