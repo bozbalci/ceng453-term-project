@@ -13,6 +13,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/player").permitAll()
+                .antMatchers(HttpMethod.GET, "/player/whoami").permitAll()
                 .antMatchers(HttpMethod.GET, "/leaderboard").permitAll()
                 .antMatchers(HttpMethod.GET, "/player").hasAuthority("ROLE_ADMIN")
                 .anyRequest().fullyAuthenticated()

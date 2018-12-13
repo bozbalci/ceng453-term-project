@@ -32,4 +32,7 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
             "ORDER BY total_score DESC\n" +
             "LIMIT :limit", nativeQuery = true)
     List<Object[]> getSevenDaysLeaderboard(@Param("limit") long limit);
+
+    @Query(value = "SELECT MAX(gm.match_id) FROM game_match gm", nativeQuery = true)
+    long getMaximumMatchId();
 }

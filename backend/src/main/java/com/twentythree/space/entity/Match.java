@@ -34,7 +34,7 @@ public class Match {
     @CreationTimestamp
     Date createdAt;
 
-    protected Match() {}
+    public Match() {}
 
     public Match(long matchId, Player player, MatchType matchType, long score,
                  Date createdAt) {
