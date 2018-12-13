@@ -1,5 +1,6 @@
 package com.twentythree.space.controller;
 
+import com.twentythree.space.entity.LiveMatchManagerSingleton;
 import com.twentythree.space.entity.Match;
 import com.twentythree.space.entity.MatchType;
 import com.twentythree.space.entity.Player;
@@ -8,7 +9,7 @@ import com.twentythree.space.exception.MatchNotFoundException;
 import com.twentythree.space.exception.PlayerNotFoundException;
 import com.twentythree.space.repository.MatchRepository;
 import com.twentythree.space.repository.PlayerRepository;
-import com.twentythree.space.util.SPScoreRequestWrapper;
+import com.twentythree.space.util.ScoreRequestWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -40,14 +41,14 @@ public class MatchController {
     }
 
     @PostMapping("/submit-sp-score")
-    Match submitSingleplayerScore(@RequestBody SPScoreRequestWrapper req, Authentication auth) {
+    Match submitSingleplayerScore(@RequestBody ScoreRequestWrapper req, Authentication auth) {
         if (auth == null) {
             throw new ForbiddenException();
         }
 
         final Player player = (Player) auth.getPrincipal();
         long score = req.getScore();
-        long matchId = matchRepository.getMaximumMatchId() + 1;
+        long matchId = LiveMatchManagerSingleton.getInstance().acquireMatchId();
 
         Match match = new Match();
         match.setPlayer(player);
@@ -56,6 +57,18 @@ public class MatchController {
         match.setMatchType(MatchType.SINGLEPLAYER);
 
         return matchRepository.save(match);
+    }
+
+    @PostMapping("/submit-mp-score")
+    Match submitMultiplayerScore(@RequestBody ScoreRequestWrapper req, Authentication auth) {
+        if (auth == null) {
+            throw new ForbiddenException();
+        }
+
+        final Player player = (Player) auth.getPrincipal();
+        long score = req.getScore();
+
+        return LiveMatchManagerSingleton.getInstance().submitScore(player.getId(), score);
     }
 
     @GetMapping("/{matchId}/{playerId}")
@@ -70,5 +83,13 @@ public class MatchController {
     @DeleteMapping("/{id}")
     void deleteMatch(@PathVariable long id) {
         matchRepository.deleteById(id);
+    }
+
+    public long getMaximumMatchId() {
+        return matchRepository.getMaximumMatchId();
+    }
+
+    public Match save(Match match) {
+        return matchRepository.save(match);
     }
 }

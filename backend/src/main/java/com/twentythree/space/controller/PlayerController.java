@@ -79,4 +79,9 @@ public class PlayerController {
 
         playerRepository.deleteById(id);
     }
+
+    public Player findById(long playerId) {
+        return playerRepository.findById(playerId)
+                .orElseThrow(() -> new PlayerNotFoundException(playerId));
+    }
 }

@@ -8,4 +8,8 @@ public class MatchNotFoundException extends RuntimeException {
     public MatchNotFoundException(long id) {
         super(String.format("Match Not Found: %d", id));
     }
+
+    public MatchNotFoundException() {
+        super("Match Not Found");
+    }
 }
