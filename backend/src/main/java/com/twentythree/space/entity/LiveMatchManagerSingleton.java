@@ -1,13 +1,8 @@
 package com.twentythree.space.entity;
 
-import com.twentythree.space.controller.MatchController;
 import com.twentythree.space.exception.MatchNotFoundException;
 import com.twentythree.space.repository.MatchRepository;
 import com.twentythree.space.util.BeanUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -47,7 +42,7 @@ public class LiveMatchManagerSingleton {
         Boolean found = false;
         Iterator<LiveMatch> it = matches.iterator();
 
-        while (!found || it.hasNext()) {
+        while (it.hasNext()) {
             LiveMatch liveMatch = it.next();
 
             if (liveMatch.hasPlayer(playerId)) {
@@ -56,6 +51,7 @@ public class LiveMatchManagerSingleton {
                 if (liveMatch.isFinished()) {
                     it.remove();
                     found = true;
+                    break;
                 }
             }
         }

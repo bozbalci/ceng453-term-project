@@ -4,9 +4,6 @@ import com.twentythree.space.exception.PlayerNotFoundException;
 import com.twentythree.space.repository.MatchRepository;
 import com.twentythree.space.repository.PlayerRepository;
 import com.twentythree.space.util.BeanUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
-import org.springframework.stereotype.Component;
 
 public class LiveMatch {
     private PlayerRepository playerRepository;
