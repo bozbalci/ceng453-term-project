@@ -2,6 +2,7 @@ package com.twentythree.space.entity;
 
 import com.twentythree.space.exception.MatchNotFoundException;
 import com.twentythree.space.repository.MatchRepository;
+import com.twentythree.space.service.MatchmakingService;
 import com.twentythree.space.util.BeanUtil;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class LiveMatchManagerSingleton {
         matches = new ArrayList<>();
 
         matchRepository = BeanUtil.getBean(MatchRepository.class);
-        currentMatchId = matchRepository.getMaximumMatchId();
+        currentMatchId = matchRepository.getMaximumMatchId() + 1;
     }
 
     public static LiveMatchManagerSingleton getInstance() {
@@ -29,10 +30,14 @@ public class LiveMatchManagerSingleton {
     private long currentMatchId;
 
     public long createLiveMatch(long playerOneId, long playerTwoId) {
-        LiveMatch liveMatch = new LiveMatch(currentMatchId, playerOneId, playerTwoId);
+        long matchId = acquireMatchId();
+
+        LiveMatch liveMatch = new LiveMatch(matchId, playerOneId, playerTwoId);
         matches.add(liveMatch);
 
-        currentMatchId++;
+        // These players found a match, so they should be removed from the MM queue
+        MatchmakingService.getInstance().removePlayerById(playerOneId);
+        MatchmakingService.getInstance().removePlayerById(playerTwoId);
 
         return liveMatch.getMatchId();
     }
@@ -42,16 +47,15 @@ public class LiveMatchManagerSingleton {
         Boolean found = false;
         Iterator<LiveMatch> it = matches.iterator();
 
-        while (it.hasNext()) {
+        while (!found && it.hasNext()) {
             LiveMatch liveMatch = it.next();
 
             if (liveMatch.hasPlayer(playerId)) {
+                found = true;
                 result = liveMatch.submitScore(playerId, score);
 
                 if (liveMatch.isFinished()) {
                     it.remove();
-                    found = true;
-                    break;
                 }
             }
         }
