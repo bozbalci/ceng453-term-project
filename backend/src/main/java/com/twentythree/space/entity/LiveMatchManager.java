@@ -9,19 +9,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class LiveMatchManagerSingleton {
-    private static LiveMatchManagerSingleton instance = new LiveMatchManagerSingleton();
+public class LiveMatchManager {
+    private static LiveMatchManager instance = new LiveMatchManager();
 
     private MatchRepository matchRepository;
 
-    private LiveMatchManagerSingleton() {
+    private LiveMatchManager() {
         matches = new ArrayList<>();
 
         matchRepository = BeanUtil.getBean(MatchRepository.class);
         currentMatchId = matchRepository.getMaximumMatchId() + 1;
     }
 
-    public static LiveMatchManagerSingleton getInstance() {
+    public static LiveMatchManager getInstance() {
         return instance;
     }
 

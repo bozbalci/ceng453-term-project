@@ -1,6 +1,6 @@
 package com.twentythree.space.controller;
 
-import com.twentythree.space.entity.LiveMatchManagerSingleton;
+import com.twentythree.space.entity.LiveMatchManager;
 import com.twentythree.space.entity.Match;
 import com.twentythree.space.entity.MatchType;
 import com.twentythree.space.entity.Player;
@@ -48,7 +48,7 @@ public class MatchController {
 
         final Player player = (Player) auth.getPrincipal();
         long score = req.getScore();
-        long matchId = LiveMatchManagerSingleton.getInstance().acquireMatchId();
+        long matchId = LiveMatchManager.getInstance().acquireMatchId();
 
         Match match = new Match();
         match.setPlayer(player);
@@ -68,7 +68,7 @@ public class MatchController {
         final Player player = (Player) auth.getPrincipal();
         long score = req.getScore();
 
-        return LiveMatchManagerSingleton.getInstance().submitScore(player.getId(), score);
+        return LiveMatchManager.getInstance().submitScore(player.getId(), score);
     }
 
     @GetMapping("/{matchId}/{playerId}")

@@ -1,6 +1,6 @@
 package com.twentythree.space.service;
 
-import com.twentythree.space.entity.LiveMatchManagerSingleton;
+import com.twentythree.space.entity.LiveMatchManager;
 import com.twentythree.space.entity.Player;
 
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public class MatchmakingService {
             Player playerOne = queue.remove();
             Player playerTwo = queue.remove();
 
-            matchId = LiveMatchManagerSingleton.getInstance()
+            matchId = LiveMatchManager.getInstance()
                     .createLiveMatch(playerOne.getId(), playerTwo.getId());
 
             notifyPlayerById(playerOne.getId());
