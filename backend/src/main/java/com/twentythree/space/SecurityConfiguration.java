@@ -14,7 +14,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/player").permitAll()
                 .antMatchers(HttpMethod.GET, "/player/whoami").permitAll()
-                .antMatchers(HttpMethod.GET, "/leaderboard").permitAll()
+                .antMatchers(HttpMethod.GET, "/leaderboard/*").permitAll()
                 .antMatchers(HttpMethod.GET, "/player").hasAuthority("ROLE_ADMIN")
                 .anyRequest().fullyAuthenticated()
                 .and().httpBasic()

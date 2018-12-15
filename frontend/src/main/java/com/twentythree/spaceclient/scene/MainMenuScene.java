@@ -35,11 +35,17 @@ public class MainMenuScene {
         });
         pane.add(newGame, 1, 1);
 
+        Button leaderboard = new Button("Leaderboard");
+        leaderboard.setOnAction(e -> {
+            stageManager.toScene(SceneType.LEADERBOARD_SCENE);
+        });
+        pane.add(leaderboard, 1, 2);
+
         Button quit = new Button("Quit Game");
         quit.setOnAction(e -> {
             System.exit(0);
         });
-        pane.add(quit, 1, 2);
+        pane.add(quit, 1, 3);
 
         instance = new MainMenuScene(pane, new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT));
 

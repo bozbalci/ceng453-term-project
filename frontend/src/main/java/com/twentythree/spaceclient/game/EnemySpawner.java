@@ -7,10 +7,11 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class EnemySpawner {
     private GameManager manager;
-    private List<Enemy> enemyList;
+    private List<AbstractEnemy> enemyList;
     private Timeline spawn;
     private Long enemyCount;
     private Long aliveCount;
@@ -35,7 +36,16 @@ public class EnemySpawner {
 
     private void startSpawn() {
         spawn = new Timeline(new KeyFrame(Duration.seconds(Game.ENEMY_SPAWN_INTERVAL), e -> {
-            Enemy enemy = new Enemy(manager);
+            double random = new Random().nextDouble();
+            AbstractEnemy enemy;
+
+            if (random <= 0.25) {
+                enemy = new RapidAttackEnemy(manager);
+            } else if (random <= 0.50) {
+                enemy = new AttackResistantEnemy(manager);
+            } else {
+                enemy = new BaseEnemy(manager);
+            }
 
             enemyList.add(enemy);
         }));
@@ -48,7 +58,7 @@ public class EnemySpawner {
         spawn.stop();
     }
 
-    List<Enemy> getEnemyList() {
+    List<AbstractEnemy> getEnemyList() {
         return enemyList;
     }
 }

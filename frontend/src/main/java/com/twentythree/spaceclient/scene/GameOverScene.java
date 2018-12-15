@@ -12,7 +12,6 @@ import javafx.scene.layout.GridPane;
 
 public class GameOverScene {
     private GridPane pane;
-    private StageManager stageManager;
     private Scene scene;
 
     private GameOverScene(GridPane pane, Scene scene) {
@@ -48,9 +47,11 @@ public class GameOverScene {
 
         instance = new GameOverScene(pane, new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT));
 
-        instance.stageManager = stageManager;
-
         stageManager.setTitle("Space Shooter: Game Over!");
+
+        stageManager.getRequestController().submitScore(
+                stageManager.getLevelProvider().getTotalScore().getValue()
+        );
 
         return instance;
     }

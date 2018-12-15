@@ -47,11 +47,11 @@ public class PlayerProjectile {
 
         Bounds projectileBounds = self.getBoundsInParent();
 
-        List<Enemy> enemyList = manager.getSpawner().getEnemyList();
-        Iterator<Enemy> it = enemyList.iterator();
+        List<AbstractEnemy> enemyList = manager.getSpawner().getEnemyList();
+        Iterator<AbstractEnemy> it = enemyList.iterator();
 
         while (it.hasNext()) {
-            Enemy enemy = it.next();
+            AbstractEnemy enemy = it.next();
 
             if (enemy.intersects(projectileBounds)) {
                 stopAndUnmount();

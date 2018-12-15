@@ -10,6 +10,7 @@ public class StageManager {
 
     private StageManager() {
         levelProvider = new LevelProvider();
+        requestController = new HttpRequestController();
     }
 
     public static StageManager getInstance() {
@@ -18,6 +19,7 @@ public class StageManager {
 
     private Stage stage;
     private LevelProvider levelProvider;
+    private HttpRequestController requestController;
 
     public void setStage(Stage newStage) {
         stage = newStage;
@@ -56,11 +58,18 @@ public class StageManager {
             case VICTORY_SCENE:
                 setScene(VictoryScene.create(this).getScene());
                 break;
+            case LEADERBOARD_SCENE:
+                setScene(LeaderboardScene.create(this).getScene());
+                break;
         }
     }
 
     public LevelProvider getLevelProvider() {
         return levelProvider;
+    }
+
+    public HttpRequestController getRequestController() {
+        return requestController;
     }
 }
 

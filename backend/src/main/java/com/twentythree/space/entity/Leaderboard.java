@@ -18,4 +18,12 @@ public class Leaderboard {
 
         return new Leaderboard(entries);
     }
+
+    public List<LeaderboardEntry> getEntries() {
+        return entries;
+    }
+
+    public void setEntries(List<LeaderboardEntry> entries) {
+        this.entries = entries;
+    }
 }

@@ -5,34 +5,44 @@ import com.twentythree.spaceclient.constants.Game;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 import java.util.Random;
 
-public class Enemy {
+class AbstractEnemy {
     private long health;
     private Rectangle self;
     private GameManager manager;
     private Timeline autoAttack;
 
-    public Enemy(GameManager manager) {
+    protected long maxHealth;
+    protected Color strokeColor;
+    protected Color fillColor;
+    protected double attackInterval;
+
+    AbstractEnemy() {
+
+    }
+
+    void initialize(GameManager manager) {
         self = new Rectangle(new Random().nextInt(GUI.WINDOW_WIDTH - GUI.DEFAULT_INSET - Game.ENEMY_SIZE),
                 GUI.DEFAULT_INSET + new Random().nextInt((int) (GUI.LARGE_INSET * GUI.INSET_DEVIATION)),
                 Game.ENEMY_SIZE, Game.ENEMY_SIZE);
-        self.setStroke(Game.ENEMY_STROKE_COLOR);
-        self.setFill(Game.ENEMY_FILL_COLOR);
+        self.setStroke(strokeColor);
+        self.setFill(fillColor);
 
         this.manager = manager;
         this.manager.mount(self);
 
-        health = Game.ENEMY_MAX_HEALTH;
+        health = maxHealth;
 
         startAttack();
     }
 
     private void startAttack() {
-        autoAttack = new Timeline(new KeyFrame(Duration.seconds(Game.ENEMY_ATTACK_INTERVAL), e -> {
+        autoAttack = new Timeline(new KeyFrame(Duration.seconds(attackInterval), e -> {
             EnemyProjectile projectile = new EnemyProjectile(manager,
                     self.getX() + self.getWidth() / 2, self.getY() + self.getHeight());
         }));

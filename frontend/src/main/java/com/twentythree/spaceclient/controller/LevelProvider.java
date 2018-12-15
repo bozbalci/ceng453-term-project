@@ -21,13 +21,15 @@ public class LevelProvider {
     public long getEnemyCountForLevel() {
         switch (currentLevel.getValue()) {
             case 1:
-                return 1;
+                return 15;
             case 2:
-                return 2;
+                return 30;
             case 3:
-                return 3;
-            default:
+                return 2000;
+            case 4:
                 return 100;
+            default:
+                return 10000;
         }
     }
 

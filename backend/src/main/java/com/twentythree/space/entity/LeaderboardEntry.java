@@ -20,4 +20,20 @@ public class LeaderboardEntry {
 
         return new LeaderboardEntry(username, score);
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public long getScore() {
+        return score;
+    }
+
+    public void setScore(long score) {
+        this.score = score;
+    }
 }
