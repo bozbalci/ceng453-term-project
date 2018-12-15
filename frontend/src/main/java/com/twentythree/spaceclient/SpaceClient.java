@@ -23,7 +23,7 @@ public class SpaceClient extends Application {
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Label userName = new Label("User Name:");
+        Label userName = new Label("Username:");
         grid.add(userName, 0, 1);
 
         TextField userNameField = new TextField();
@@ -35,23 +35,16 @@ public class SpaceClient extends Application {
         PasswordField passwordField = new PasswordField();
         grid.add(passwordField, 1, 2);
 
-        Button btn = new Button("Sign in");
+        Button btn = new Button("Sign In");
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
 
-//        SignInButtonHandler sibh = new SignInButtonHandler();
-//        btn.setOnAction(sibh);
-
-        btn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (userNameField.getText().length() > 0 && passwordField.getText().length() > 0) {
-                    System.out.println("Sending request to Server: " + userNameField.getText());
-                    GameScene gameSceneObject = new GameScene();
-                    primaryStage.setScene(gameSceneObject.ReturnGameScene());
-                    primaryStage.setTitle("Space Shooter - Game");
-                }
+        btn.setOnAction(event -> {
+            if (userNameField.getText().length() > 0 && passwordField.getText().length() > 0) {
+                System.out.println("Sending request to Server: " + userNameField.getText());
+                primaryStage.setScene(GameScene.get());
+                primaryStage.setTitle("Space Shooter - Game");
             }
         });
 
@@ -66,14 +59,5 @@ public class SpaceClient extends Application {
 
     public static void main(String[] args) {
         launch(args);
-    }
-}
-
-class SignInButtonHandler implements EventHandler<ActionEvent> {
-    @Override
-    public void handle(ActionEvent e) {
-        System.out.println("Sending request to Server: ");
-        GameScene gameSceneObject = new GameScene();
-        gameSceneObject.ReturnGameScene();
     }
 }
