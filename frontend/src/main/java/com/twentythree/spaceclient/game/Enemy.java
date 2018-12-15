@@ -1,11 +1,10 @@
-package com.twentythree.spaceclient.entity;
+package com.twentythree.spaceclient.game;
 
 import com.twentythree.spaceclient.constants.GUI;
 import com.twentythree.spaceclient.constants.Game;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -19,9 +18,10 @@ public class Enemy {
 
     public Enemy(GameManager manager) {
         self = new Rectangle(new Random().nextInt(GUI.WINDOW_WIDTH - GUI.DEFAULT_INSET - Game.ENEMY_SIZE),
-                GUI.LARGE_INSET, Game.ENEMY_SIZE, Game.ENEMY_SIZE);
-        self.setStroke(Color.BLACK);
-        self.setFill(Color.BLACK);
+                GUI.DEFAULT_INSET + new Random().nextInt((int) (GUI.LARGE_INSET * GUI.INSET_DEVIATION)),
+                Game.ENEMY_SIZE, Game.ENEMY_SIZE);
+        self.setStroke(Game.ENEMY_STROKE_COLOR);
+        self.setFill(Game.ENEMY_FILL_COLOR);
 
         this.manager = manager;
         this.manager.mount(self);

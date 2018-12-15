@@ -1,9 +1,9 @@
-package com.twentythree.spaceclient.entity;
+package com.twentythree.spaceclient.game;
 
+import com.twentythree.spaceclient.constants.Game;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
@@ -16,9 +16,9 @@ public class PlayerProjectile {
     private GameManager manager;
 
     PlayerProjectile(GameManager manager, double x, double y) {
-        self = new Circle(x, y, 2);
-        self.setStroke(Color.BLACK);
-        self.setFill(Color.BLUE);
+        self = new Circle(x, y, Game.PLAYER_PROJECTILE_SIZE);
+        self.setStroke(Game.PLAYER_PROJECTILE_STROKE_COLOR);
+        self.setFill(Game.PLAYER_PROJECTILE_FILL_COLOR);
 
         this.manager = manager;
         this.manager.mount(self);
@@ -27,22 +27,23 @@ public class PlayerProjectile {
     }
 
     private void launch() {
-        movement = new Timeline(new KeyFrame(Duration.millis(50), e -> updatePosition()));
+        movement = new Timeline(new KeyFrame(Duration.millis(Game.PLAYER_PROJECTILE_UPDATE_INTERVAL),
+                e -> updatePosition()));
         movement.setCycleCount(Timeline.INDEFINITE);
         movement.play();
     }
 
     private void stopAndUnmount() {
-        stop();
+        movement.stop();
         manager.unmount(self);
     }
 
-    private void stop() {
-        movement.stop();
-    }
-
     private void updatePosition() {
-        self.setCenterY(self.getCenterY() - 5);
+        self.setCenterY(self.getCenterY() - Game.PLAYER_PROJECTILE_UPDATE_INCREMENT);
+
+        if (self.getCenterY() <= 0) {
+            stopAndUnmount();
+        }
 
         Bounds projectileBounds = self.getBoundsInParent();
 
@@ -59,7 +60,6 @@ public class PlayerProjectile {
 
                 if (dead) {
                     it.remove();
-                    System.out.println("Points: " + manager.getScore());
                 }
             }
         }

@@ -2,7 +2,7 @@ package com.twentythree.spaceclient.scene;
 
 import com.twentythree.spaceclient.constants.GUI;
 import com.twentythree.spaceclient.constants.SceneType;
-import com.twentythree.spaceclient.stage.StageManager;
+import com.twentythree.spaceclient.controller.StageManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

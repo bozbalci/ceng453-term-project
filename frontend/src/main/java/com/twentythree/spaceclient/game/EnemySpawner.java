@@ -1,4 +1,4 @@
-package com.twentythree.spaceclient.entity;
+package com.twentythree.spaceclient.game;
 
 import com.twentythree.spaceclient.constants.Game;
 import javafx.animation.KeyFrame;

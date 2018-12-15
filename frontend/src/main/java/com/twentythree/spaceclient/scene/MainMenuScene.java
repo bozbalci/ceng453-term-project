@@ -2,7 +2,7 @@ package com.twentythree.spaceclient.scene;
 
 import com.twentythree.spaceclient.constants.GUI;
 import com.twentythree.spaceclient.constants.SceneType;
-import com.twentythree.spaceclient.stage.StageManager;
+import com.twentythree.spaceclient.controller.StageManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -11,7 +11,6 @@ import javafx.scene.layout.GridPane;
 
 public class MainMenuScene {
     private GridPane pane;
-    private StageManager stageManager;
     private Scene scene;
 
     private MainMenuScene(GridPane pane, Scene scene) {
@@ -31,6 +30,7 @@ public class MainMenuScene {
 
         Button newGame = new Button("New Game");
         newGame.setOnAction(e -> {
+            stageManager.getLevelProvider().reset();
             stageManager.toScene(SceneType.GAME_SCENE);
         });
         pane.add(newGame, 1, 1);
@@ -42,8 +42,6 @@ public class MainMenuScene {
         pane.add(quit, 1, 2);
 
         instance = new MainMenuScene(pane, new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT));
-
-        instance.stageManager = stageManager;
 
         stageManager.setTitle("Space Shooter: Main Menu");
 

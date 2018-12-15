@@ -1,7 +1,8 @@
-package com.twentythree.spaceclient.entity;
+package com.twentythree.spaceclient.game;
 
 import com.twentythree.spaceclient.constants.SceneType;
-import com.twentythree.spaceclient.stage.StageManager;
+import com.twentythree.spaceclient.controller.LevelProvider;
+import com.twentythree.spaceclient.controller.StageManager;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.scene.Node;
@@ -14,13 +15,13 @@ public class GameManager {
     private LongProperty scoreProperty;
     private boolean isFinished;
 
-    public GameManager(Pane pane) {
+    public GameManager(Pane pane, LevelProvider levelProvider) {
         _mountedPane = pane;
 
         player = new Player(this);
-        spawner = new EnemySpawner(this, 10L);
+        spawner = new EnemySpawner(this, levelProvider.getEnemyCountForLevel());
 
-        scoreProperty = new SimpleLongProperty(0);
+        scoreProperty = new SimpleLongProperty(levelProvider.getTotalScore().getValue());
         isFinished = false;
     }
 
@@ -58,7 +59,7 @@ public class GameManager {
             spawner.stopSpawn();
 
             StageManager stageManager =  StageManager.getInstance();
-            stageManager.setLastGameScore(getScore());
+            stageManager.getLevelProvider().setScore(scoreProperty.getValue());
             stageManager.toScene(SceneType.GAME_OVER_SCENE);
         }
     }
@@ -69,7 +70,7 @@ public class GameManager {
             spawner.stopSpawn();
 
             StageManager stageManager = StageManager.getInstance();
-            stageManager.setLastGameScore(getScore());
+            stageManager.getLevelProvider().setScore(scoreProperty.getValue());
             stageManager.toScene(SceneType.VICTORY_SCENE);
         }
     }

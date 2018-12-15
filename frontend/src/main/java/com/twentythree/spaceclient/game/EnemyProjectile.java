@@ -1,9 +1,10 @@
-package com.twentythree.spaceclient.entity;
+package com.twentythree.spaceclient.game;
 
+import com.twentythree.spaceclient.constants.GUI;
+import com.twentythree.spaceclient.constants.Game;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
@@ -13,9 +14,9 @@ public class EnemyProjectile {
     private GameManager manager;
 
     EnemyProjectile(GameManager manager, double x, double y) {
-        self = new Circle(x, y, 2);
-        self.setStroke(Color.BLACK);
-        self.setFill(Color.RED);
+        self = new Circle(x, y, Game.ENEMY_PROJECTILE_SIZE);
+        self.setStroke(Game.ENEMY_PROJECTILE_STROKE_COLOR);
+        self.setFill(Game.ENEMY_PROJECTILE_FILL_COLOR);
 
         this.manager = manager;
         this.manager.mount(self);
@@ -24,7 +25,8 @@ public class EnemyProjectile {
     }
 
     private void launch() {
-        movement = new Timeline(new KeyFrame(Duration.millis(50), e -> updatePosition()));
+        movement = new Timeline(new KeyFrame(Duration.millis(Game.ENEMY_PROJECTILE_UPDATE_INTERVAL),
+                e -> updatePosition()));
         movement.setCycleCount(Timeline.INDEFINITE);
         movement.play();
     }
@@ -39,7 +41,11 @@ public class EnemyProjectile {
     }
 
     private void updatePosition() {
-        self.setCenterY(self.getCenterY() + 5);
+        self.setCenterY(self.getCenterY() + Game.ENEMY_PROJECTILE_UPDATE_INCREMENT);
+
+        if (self.getCenterY() >= GUI.WINDOW_HEIGHT) {
+            stopAndUnmount();
+        }
 
         Bounds projectileBounds = self.getBoundsInParent();
 

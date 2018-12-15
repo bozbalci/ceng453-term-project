@@ -2,7 +2,7 @@ package com.twentythree.spaceclient.scene;
 
 import com.twentythree.spaceclient.constants.GUI;
 import com.twentythree.spaceclient.constants.SceneType;
-import com.twentythree.spaceclient.stage.StageManager;
+import com.twentythree.spaceclient.controller.StageManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -36,14 +36,22 @@ public class VictoryScene {
         Label yourScoreIsTextLabel = new Label("Your score is: ");
         pane.add(yourScoreIsTextLabel, 1, 2);
 
-        Label yourScoreIsAmountLabel = new Label(stageManager.getLastGameScore().toString());
+        Label yourScoreIsAmountLabel = new Label();
+        yourScoreIsAmountLabel.textProperty().bind(stageManager.getLevelProvider().getTotalScore().asString());
         pane.add(yourScoreIsAmountLabel, 2, 2);
+
+        Button nextLevel = new Button("Proceed to Next Level");
+        nextLevel.setOnAction(e -> {
+            stageManager.getLevelProvider().incrementLevel();
+            stageManager.toScene(SceneType.GAME_SCENE);
+        });
+        pane.add(nextLevel, 1, 3);
 
         Button goToMainMenu = new Button("Go to Main Menu");
         goToMainMenu.setOnAction(e -> {
             StageManager.getInstance().toScene(SceneType.MAIN_MENU_SCENE);
         });
-        pane.add(goToMainMenu, 1, 3);
+        pane.add(goToMainMenu, 1, 4);
 
         instance = new VictoryScene(pane, new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT));
 

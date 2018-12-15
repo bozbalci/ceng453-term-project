@@ -1,4 +1,4 @@
-package com.twentythree.spaceclient.stage;
+package com.twentythree.spaceclient.controller;
 
 import com.twentythree.spaceclient.constants.SceneType;
 import com.twentythree.spaceclient.scene.*;
@@ -8,26 +8,19 @@ import javafx.stage.Stage;
 public class StageManager {
     private static StageManager instance = new StageManager();
 
-    private StageManager() {}
+    private StageManager() {
+        levelProvider = new LevelProvider();
+    }
 
     public static StageManager getInstance() {
         return instance;
     }
 
     private Stage stage;
-
-    private Long lastGameScore;
+    private LevelProvider levelProvider;
 
     public void setStage(Stage newStage) {
         stage = newStage;
-    }
-
-    public Long getLastGameScore() {
-        return lastGameScore;
-    }
-
-    public void setLastGameScore(Long lastGameScore) {
-        this.lastGameScore = lastGameScore;
     }
 
     private void setScene(Scene scene) {
@@ -64,6 +57,10 @@ public class StageManager {
                 setScene(VictoryScene.create(this).getScene());
                 break;
         }
+    }
+
+    public LevelProvider getLevelProvider() {
+        return levelProvider;
     }
 }
 

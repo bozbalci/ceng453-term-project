@@ -2,7 +2,7 @@ package com.twentythree.spaceclient.scene;
 
 import com.twentythree.spaceclient.constants.GUI;
 import com.twentythree.spaceclient.constants.SceneType;
-import com.twentythree.spaceclient.stage.StageManager;
+import com.twentythree.spaceclient.controller.StageManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -36,7 +36,8 @@ public class GameOverScene {
         Label yourScoreIsTextLabel = new Label("Your score is: ");
         pane.add(yourScoreIsTextLabel, 1, 2);
 
-        Label yourScoreIsAmountLabel = new Label(stageManager.getLastGameScore().toString());
+        Label yourScoreIsAmountLabel = new Label();
+        yourScoreIsAmountLabel.textProperty().bind(stageManager.getLevelProvider().getTotalScore().asString());
         pane.add(yourScoreIsAmountLabel, 2, 2);
 
         Button goToMainMenu = new Button("Go to Main Menu");
