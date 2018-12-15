@@ -1,5 +1,7 @@
 package com.twentythree.spaceclient.entity;
 
+import com.twentythree.spaceclient.constants.GUI;
+import com.twentythree.spaceclient.constants.Game;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
@@ -16,20 +18,21 @@ public class Enemy {
     private Timeline autoAttack;
 
     public Enemy(GameManager manager) {
-        self = new Rectangle(new Random().nextInt(200), 20, 10, 10);
+        self = new Rectangle(new Random().nextInt(GUI.WINDOW_WIDTH - GUI.DEFAULT_INSET - Game.ENEMY_SIZE),
+                GUI.LARGE_INSET, Game.ENEMY_SIZE, Game.ENEMY_SIZE);
         self.setStroke(Color.BLACK);
         self.setFill(Color.BLACK);
 
         this.manager = manager;
         this.manager.mount(self);
 
-        health = 2;
+        health = Game.ENEMY_MAX_HEALTH;
 
         startAttack();
     }
 
     private void startAttack() {
-        autoAttack = new Timeline(new KeyFrame(Duration.seconds(1.5), e -> {
+        autoAttack = new Timeline(new KeyFrame(Duration.seconds(Game.ENEMY_ATTACK_INTERVAL), e -> {
             EnemyProjectile projectile = new EnemyProjectile(manager,
                     self.getX() + self.getWidth() / 2, self.getY() + self.getHeight());
         }));
@@ -59,9 +62,11 @@ public class Enemy {
         health--;
 
         if (!isAlive()) {
-            manager.addScore(50);
+            manager.addScore(Game.POINTS_PER_KILL);
 
             stopAttackAndUnmount();
+
+            manager.getSpawner().processKill();
 
             return true;
         } else {
