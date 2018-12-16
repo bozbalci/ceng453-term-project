@@ -1,7 +1,9 @@
-package com.twentythree.spaceclient.game;
+package com.twentythree.spaceclient.game.projectile;
 
 import com.twentythree.spaceclient.constants.GUI;
 import com.twentythree.spaceclient.constants.Game;
+import com.twentythree.spaceclient.game.GameManager;
+import com.twentythree.spaceclient.game.Player;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
@@ -13,7 +15,7 @@ public class EnemyProjectile {
     private Timeline movement;
     private GameManager manager;
 
-    EnemyProjectile(GameManager manager, double x, double y) {
+    public EnemyProjectile(GameManager manager, double x, double y) {
         self = new Circle(x, y, Game.ENEMY_PROJECTILE_SIZE);
         self.setStroke(Game.ENEMY_PROJECTILE_STROKE_COLOR);
         self.setFill(Game.ENEMY_PROJECTILE_FILL_COLOR);
@@ -31,12 +33,8 @@ public class EnemyProjectile {
         movement.play();
     }
 
-    public void stop() {
-        movement.stop();
-    }
-
     private void stopAndUnmount() {
-        stop();
+        movement.stop();
         manager.unmount(self);
     }
 

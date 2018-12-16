@@ -1,6 +1,10 @@
 package com.twentythree.spaceclient.game;
 
 import com.twentythree.spaceclient.constants.Game;
+import com.twentythree.spaceclient.game.enemy.AbstractEnemy;
+import com.twentythree.spaceclient.game.enemy.AttackResistantEnemy;
+import com.twentythree.spaceclient.game.enemy.BaseEnemy;
+import com.twentythree.spaceclient.game.enemy.RapidAttackEnemy;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -16,7 +20,7 @@ public class EnemySpawner {
     private Long enemyCount;
     private Long aliveCount;
 
-    public EnemySpawner(GameManager manager, Long enemyCount) {
+    EnemySpawner(GameManager manager, Long enemyCount) {
         this.manager = manager;
         this.enemyCount = enemyCount;
         this.aliveCount = enemyCount;
@@ -58,7 +62,7 @@ public class EnemySpawner {
         spawn.stop();
     }
 
-    List<AbstractEnemy> getEnemyList() {
+    public List<AbstractEnemy> getEnemyList() {
         return enemyList;
     }
 }

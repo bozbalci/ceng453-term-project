@@ -2,6 +2,7 @@ package com.twentythree.spaceclient.game;
 
 import com.twentythree.spaceclient.constants.GUI;
 import com.twentythree.spaceclient.constants.Game;
+import com.twentythree.spaceclient.game.projectile.PlayerProjectile;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.LongProperty;
@@ -35,7 +36,7 @@ public class Player {
         self.setX(x - self.getWidth() / 2);
     }
 
-    boolean intersects(Bounds bounds) {
+    public boolean intersects(Bounds bounds) {
         return self.getBoundsInParent().intersects(bounds);
     }
 
@@ -54,7 +55,7 @@ public class Player {
     }
 
     // Returns true if the player was killed by invoking this method, false otherwise
-    void processHit() {
+    public void processHit() {
         healthProperty.setValue(healthProperty.getValue() - 1);
 
         if (!isAlive()) {

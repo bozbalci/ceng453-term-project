@@ -1,7 +1,9 @@
-package com.twentythree.spaceclient.game;
+package com.twentythree.spaceclient.game.enemy;
 
 import com.twentythree.spaceclient.constants.GUI;
 import com.twentythree.spaceclient.constants.Game;
+import com.twentythree.spaceclient.game.projectile.EnemyProjectile;
+import com.twentythree.spaceclient.game.GameManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
@@ -11,7 +13,7 @@ import javafx.util.Duration;
 
 import java.util.Random;
 
-class AbstractEnemy {
+public class AbstractEnemy {
     private long health;
     private Rectangle self;
     private GameManager manager;
@@ -59,7 +61,7 @@ class AbstractEnemy {
         autoAttack.stop();
     }
 
-    boolean intersects(Bounds bounds) {
+    public boolean intersects(Bounds bounds) {
         return self.getBoundsInParent().intersects(bounds);
     }
 
@@ -68,7 +70,7 @@ class AbstractEnemy {
     }
 
     // Returns true if the enemy is killed from this method, false otherwise
-    boolean processHit() {
+    public boolean processHit() {
         health--;
 
         if (!isAlive()) {

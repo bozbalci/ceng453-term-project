@@ -25,11 +25,11 @@ public class GameManager {
         isFinished = false;
     }
 
-    void mount(Node node) {
+    public void mount(Node node) {
         _mountedPane.getChildren().add(node);
     }
 
-    void unmount(Node node) {
+    public void unmount(Node node) {
         _mountedPane.getChildren().remove(node);
     }
 
@@ -53,7 +53,7 @@ public class GameManager {
         scoreProperty.setValue(scoreProperty.getValue() + points);
     }
 
-    public void gameOver() {
+    void gameOver() {
         if (!isFinished) {
             isFinished = true;
             spawner.stopSpawn();
@@ -64,7 +64,7 @@ public class GameManager {
         }
     }
 
-    public void victory() {
+    void victory() {
         if (!isFinished) {
             isFinished = true;
             spawner.stopSpawn();
