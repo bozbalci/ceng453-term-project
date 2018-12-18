@@ -45,4 +45,6 @@ public class Game {
     public static final Color RAPID_ATTACK_ENEMY_FILL_COLOR = Color.CRIMSON;
     public static final Color RAPID_ATTACK_ENEMY_STROKE_COLOR = Color.BLACK;
 
+    public static final double RAPID_ATTACK_SPAWN_CHANCE = 0.25;
+    public static final double ATTACK_RESISTANT_SPAWN_CHANCE = 0.50;
 }

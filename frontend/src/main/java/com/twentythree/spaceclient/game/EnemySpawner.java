@@ -43,9 +43,9 @@ public class EnemySpawner {
             double random = new Random().nextDouble();
             AbstractEnemy enemy;
 
-            if (random <= 0.25) {
+            if (random <= Game.RAPID_ATTACK_SPAWN_CHANCE) {
                 enemy = new RapidAttackEnemy(manager);
-            } else if (random <= 0.50) {
+            } else if (random <= Game.ATTACK_RESISTANT_SPAWN_CHANCE) {
                 enemy = new AttackResistantEnemy(manager);
             } else {
                 enemy = new StandardEnemy(manager);

@@ -40,7 +40,8 @@ public class GameScene implements IScene {
 
         Scene scene = new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
 
-        scene.setCursor(Cursor.NONE);
+        // TODO Displaying the cursor for the demo, disable later
+        // scene.setCursor(Cursor.NONE);
         scene.setOnMouseMoved(e -> {
             manager.getPlayer().updatePosition(e.getX());
         });
