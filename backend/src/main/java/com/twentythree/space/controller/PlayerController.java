@@ -35,22 +35,22 @@ public class PlayerController {
 
     @GetMapping("/player/whoami")
     long whoami(Authentication auth) {
-        final Player player = (Player) auth.getPrincipal();
-
         if (auth == null) {
             throw new ForbiddenException();
         }
+
+        final Player player = (Player) auth.getPrincipal();
 
         return player.getId();
     }
 
     @GetMapping("/player/{id}")
     Player getPlayer(@PathVariable long id, Authentication auth) {
-        final Player player = (Player) auth.getPrincipal();
-
         if (auth == null) {
             throw new ForbiddenException();
         }
+
+        final Player player = (Player) auth.getPrincipal();
 
         if (player.getId() == id) {
             return player;
