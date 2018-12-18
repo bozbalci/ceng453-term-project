@@ -13,38 +13,34 @@ import javafx.util.Duration;
 
 import java.util.Random;
 
-public class AbstractEnemy {
+public abstract class AbstractEnemy {
     private long health;
     private Rectangle self;
     private GameManager manager;
     private Timeline autoAttack;
 
-    protected long maxHealth;
-    protected Color strokeColor;
-    protected Color fillColor;
-    protected double attackInterval;
-
-    AbstractEnemy() {
-
-    }
+    abstract long getMaxHealth();
+    abstract Color getStrokeColor();
+    abstract Color getFillColor();
+    abstract double getAttackInterval();
 
     void initialize(GameManager manager) {
         self = new Rectangle(new Random().nextInt(GUI.WINDOW_WIDTH - GUI.DEFAULT_INSET - Game.ENEMY_SIZE),
                 GUI.DEFAULT_INSET + new Random().nextInt((int) (GUI.LARGE_INSET * GUI.INSET_DEVIATION)),
                 Game.ENEMY_SIZE, Game.ENEMY_SIZE);
-        self.setStroke(strokeColor);
-        self.setFill(fillColor);
+        self.setStroke(getStrokeColor());
+        self.setFill(getFillColor());
 
         this.manager = manager;
         this.manager.mount(self);
 
-        health = maxHealth;
+        health = getMaxHealth();
 
         startAttack();
     }
 
     private void startAttack() {
-        autoAttack = new Timeline(new KeyFrame(Duration.seconds(attackInterval), e -> {
+        autoAttack = new Timeline(new KeyFrame(Duration.seconds(getAttackInterval()), e -> {
             EnemyProjectile projectile = new EnemyProjectile(manager,
                     self.getX() + self.getWidth() / 2, self.getY() + self.getHeight());
         }));

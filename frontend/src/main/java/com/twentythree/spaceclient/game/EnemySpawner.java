@@ -3,7 +3,7 @@ package com.twentythree.spaceclient.game;
 import com.twentythree.spaceclient.constants.Game;
 import com.twentythree.spaceclient.game.enemy.AbstractEnemy;
 import com.twentythree.spaceclient.game.enemy.AttackResistantEnemy;
-import com.twentythree.spaceclient.game.enemy.BaseEnemy;
+import com.twentythree.spaceclient.game.enemy.StandardEnemy;
 import com.twentythree.spaceclient.game.enemy.RapidAttackEnemy;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -48,7 +48,7 @@ public class EnemySpawner {
             } else if (random <= 0.50) {
                 enemy = new AttackResistantEnemy(manager);
             } else {
-                enemy = new BaseEnemy(manager);
+                enemy = new StandardEnemy(manager);
             }
 
             enemyList.add(enemy);

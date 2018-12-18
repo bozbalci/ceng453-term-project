@@ -2,14 +2,30 @@ package com.twentythree.spaceclient.game.enemy;
 
 import com.twentythree.spaceclient.constants.Game;
 import com.twentythree.spaceclient.game.GameManager;
+import javafx.scene.paint.Color;
 
 public class RapidAttackEnemy extends AbstractEnemy {
-    public RapidAttackEnemy(GameManager manager) {
-        maxHealth = Game.RAPID_ATTACK_ENEMY_MAX_HEALTH;
-        strokeColor = Game.RAPID_ATTACK_ENEMY_STROKE_COLOR;
-        fillColor = Game.RAPID_ATTACK_ENEMY_FILL_COLOR;
-        attackInterval = Game.RAPID_ATTACK_ENEMY_ATTACK_INTERVAL;
+    @Override
+    long getMaxHealth() {
+        return Game.RAPID_ATTACK_ENEMY_MAX_HEALTH;
+    }
 
+    @Override
+    Color getStrokeColor() {
+        return Game.RAPID_ATTACK_ENEMY_STROKE_COLOR;
+    }
+
+    @Override
+    Color getFillColor() {
+        return Game.RAPID_ATTACK_ENEMY_FILL_COLOR;
+    }
+
+    @Override
+    double getAttackInterval() {
+        return Game.RAPID_ATTACK_ENEMY_ATTACK_INTERVAL;
+    }
+
+    public RapidAttackEnemy(GameManager manager) {
         initialize(manager);
     }
 }
