@@ -16,17 +16,7 @@ import javafx.scene.layout.GridPane;
 
 import java.util.Iterator;
 
-public class LeaderboardScene {
-    private TabPane pane;
-    private Scene scene;
-
-    private LeaderboardScene(TabPane pane, Scene scene) {
-        this.pane = pane;
-        this.scene = scene;
-    }
-
-    private static LeaderboardScene instance;
-
+public class LeaderboardScene implements IScene {
     private static Tab createLeaderboardTab(StageManager stageManager, String title, boolean weekly) {
         Tab tab = new Tab();
 
@@ -66,7 +56,7 @@ public class LeaderboardScene {
         return tab;
     }
 
-    public static LeaderboardScene create(StageManager stageManager) {
+    public Scene getScene(StageManager stageManager) {
         TabPane tabPane = new TabPane();
 
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
@@ -77,14 +67,8 @@ public class LeaderboardScene {
         tabPane.getTabs().add(allTimeTab);
         tabPane.getTabs().add(weeklyTab);
 
-        instance = new LeaderboardScene(tabPane, new Scene(tabPane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT));
-
         stageManager.setTitle("Space Shooter: Leaderboard");
 
-        return instance;
-    }
-
-    public Scene getScene() {
-        return scene;
+        return new Scene(tabPane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
     }
 }

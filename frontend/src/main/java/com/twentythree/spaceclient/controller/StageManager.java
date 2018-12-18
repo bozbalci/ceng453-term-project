@@ -44,22 +44,22 @@ public class StageManager {
     public void toScene(SceneType sceneType) {
         switch (sceneType) {
             case LOGIN_SCENE:
-                setScene(LoginScene.create(this).getScene());
+                setScene(new LoginScene().getScene(this));
                 break;
             case MAIN_MENU_SCENE:
-                setScene(MainMenuScene.create(this).getScene());
+                setScene(new MainMenuScene().getScene(this));
                 break;
             case GAME_SCENE:
-                setScene(GameScene.create(this).getScene());
+                setScene(new GameScene().getScene(this));
                 break;
             case GAME_OVER_SCENE:
-                setScene(GameOverScene.create(this).getScene());
+                setScene(new GameOverScene().getScene(this));
                 break;
             case VICTORY_SCENE:
-                setScene(VictoryScene.create(this).getScene());
+                setScene(new VictoryScene().getScene(this));
                 break;
             case LEADERBOARD_SCENE:
-                setScene(LeaderboardScene.create(this).getScene());
+                setScene(new LeaderboardScene().getScene(this));
                 break;
         }
     }

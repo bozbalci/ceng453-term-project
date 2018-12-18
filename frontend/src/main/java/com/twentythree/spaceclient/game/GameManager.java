@@ -11,12 +11,12 @@ import javafx.scene.layout.Pane;
 public class GameManager {
     private Player player;
     private EnemySpawner spawner;
-    private Pane _mountedPane;
+    private Pane mountedPane;
     private LongProperty scoreProperty;
     private boolean isFinished;
 
     public GameManager(Pane pane, LevelProvider levelProvider) {
-        _mountedPane = pane;
+        mountedPane = pane;
 
         player = new Player(this);
         spawner = new EnemySpawner(this, levelProvider.getEnemyCountForLevel());
@@ -26,11 +26,11 @@ public class GameManager {
     }
 
     public void mount(Node node) {
-        _mountedPane.getChildren().add(node);
+        mountedPane.getChildren().add(node);
     }
 
     public void unmount(Node node) {
-        _mountedPane.getChildren().remove(node);
+        mountedPane.getChildren().remove(node);
     }
 
     public Player getPlayer() {
@@ -41,10 +41,6 @@ public class GameManager {
         return spawner;
     }
 
-    public long getScore() {
-        return scoreProperty.getValue();
-    }
-
     public LongProperty getScoreProperty() {
         return scoreProperty;
     }
@@ -53,25 +49,22 @@ public class GameManager {
         scoreProperty.setValue(scoreProperty.getValue() + points);
     }
 
-    void gameOver() {
+    private void endAndRedirect(SceneType targetScene) {
         if (!isFinished) {
             isFinished = true;
-            spawner.stopSpawn();
+            spawner.stop();
 
             StageManager stageManager =  StageManager.getInstance();
             stageManager.getLevelProvider().setScore(scoreProperty.getValue());
-            stageManager.toScene(SceneType.GAME_OVER_SCENE);
+            stageManager.toScene(targetScene);
         }
     }
 
-    void victory() {
-        if (!isFinished) {
-            isFinished = true;
-            spawner.stopSpawn();
+    void gameOver() {
+        endAndRedirect(SceneType.GAME_OVER_SCENE);
+    }
 
-            StageManager stageManager = StageManager.getInstance();
-            stageManager.getLevelProvider().setScore(scoreProperty.getValue());
-            stageManager.toScene(SceneType.VICTORY_SCENE);
-        }
+    void victory() {
+        endAndRedirect(SceneType.VICTORY_SCENE);
     }
 }

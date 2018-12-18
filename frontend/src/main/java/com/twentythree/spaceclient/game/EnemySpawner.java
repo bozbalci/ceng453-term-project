@@ -27,10 +27,10 @@ public class EnemySpawner {
 
         enemyList = new ArrayList<>();
 
-        startSpawn();
+        start();
     }
 
-    public void processKill() {
+    public void handleKill() {
         aliveCount--;
 
         if (aliveCount <= 0) {
@@ -38,7 +38,7 @@ public class EnemySpawner {
         }
     }
 
-    private void startSpawn() {
+    private void start() {
         spawn = new Timeline(new KeyFrame(Duration.seconds(Game.ENEMY_SPAWN_INTERVAL), e -> {
             double random = new Random().nextDouble();
             AbstractEnemy enemy;
@@ -58,7 +58,7 @@ public class EnemySpawner {
         spawn.play();
     }
 
-    void stopSpawn() {
+    void stop() {
         spawn.stop();
     }
 

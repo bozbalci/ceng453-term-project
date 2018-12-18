@@ -10,19 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-public class VictoryScene {
-    private GridPane pane;
-    private StageManager stageManager;
-    private Scene scene;
-
-    private VictoryScene(GridPane pane, Scene scene) {
-        this.pane = pane;
-        this.scene = scene;
-    }
-
-    private static VictoryScene instance;
-
-    public static VictoryScene create(StageManager stageManager) {
+public class VictoryScene implements IScene {
+    public Scene getScene(StageManager stageManager) {
         GridPane pane = new GridPane();
 
         pane.setAlignment(Pos.CENTER);
@@ -53,16 +42,9 @@ public class VictoryScene {
         });
         pane.add(goToMainMenu, 1, 4);
 
-        instance = new VictoryScene(pane, new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT));
-
-        instance.stageManager = stageManager;
 
         stageManager.setTitle("Space Shooter: Victory!");
 
-        return instance;
-    }
-
-    public Scene getScene() {
-        return scene;
+        return new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
     }
 }

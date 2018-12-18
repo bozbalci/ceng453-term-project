@@ -10,18 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-public class GameOverScene {
-    private GridPane pane;
-    private Scene scene;
-
-    private GameOverScene(GridPane pane, Scene scene) {
-        this.pane = pane;
-        this.scene = scene;
-    }
-
-    private static GameOverScene instance;
-
-    public static GameOverScene create(StageManager stageManager) {
+public class GameOverScene implements IScene {
+    public Scene getScene(StageManager stageManager) {
         GridPane pane = new GridPane();
 
         pane.setAlignment(Pos.CENTER);
@@ -45,7 +35,6 @@ public class GameOverScene {
         });
         pane.add(goToMainMenu, 1, 3);
 
-        instance = new GameOverScene(pane, new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT));
 
         stageManager.setTitle("Space Shooter: Game Over!");
 
@@ -53,10 +42,6 @@ public class GameOverScene {
                 stageManager.getLevelProvider().getTotalScore().getValue()
         );
 
-        return instance;
-    }
-
-    public Scene getScene() {
-        return scene;
+        return new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
     }
 }

@@ -9,18 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
-public class MainMenuScene {
-    private GridPane pane;
-    private Scene scene;
-
-    private MainMenuScene(GridPane pane, Scene scene) {
-        this.pane = pane;
-        this.scene = scene;
-    }
-
-    private static MainMenuScene instance;
-
-    public static MainMenuScene create(StageManager stageManager) {
+public class MainMenuScene implements IScene {
+    public Scene getScene(StageManager stageManager) {
         GridPane pane = new GridPane();
 
         pane.setAlignment(Pos.CENTER);
@@ -47,14 +37,8 @@ public class MainMenuScene {
         });
         pane.add(quit, 1, 3);
 
-        instance = new MainMenuScene(pane, new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT));
-
         stageManager.setTitle("Space Shooter: Main Menu");
 
-        return instance;
-    }
-
-    public Scene getScene() {
-        return scene;
+        return new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
     }
 }

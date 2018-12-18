@@ -14,18 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
-public class LoginScene {
-    private GridPane pane;
-    private Scene scene;
-
-    private LoginScene(GridPane pane, Scene scene) {
-        this.pane = pane;
-        this.scene = scene;
-    }
-
-    private static LoginScene instance;
-
-    public static LoginScene create(StageManager stageManager) {
+public class LoginScene implements IScene {
+    public Scene getScene(StageManager stageManager) {
         GridPane pane = new GridPane();
 
         pane.setAlignment(Pos.CENTER);
@@ -81,11 +71,7 @@ public class LoginScene {
         pane.add(hBox, 1, 4);
 
         stageManager.setTitle("Space Shooter: Login");
-        instance = new LoginScene(pane, new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT));
-        return instance;
-    }
 
-    public Scene getScene() {
-        return scene;
+        return new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
     }
 }

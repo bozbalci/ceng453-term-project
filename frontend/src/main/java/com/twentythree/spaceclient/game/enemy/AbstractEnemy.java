@@ -36,10 +36,10 @@ public abstract class AbstractEnemy {
 
         health = getMaxHealth();
 
-        startAttack();
+        start();
     }
 
-    private void startAttack() {
+    private void start() {
         autoAttack = new Timeline(new KeyFrame(Duration.seconds(getAttackInterval()), e -> {
             EnemyProjectile projectile = new EnemyProjectile(manager,
                     self.getX() + self.getWidth() / 2, self.getY() + self.getHeight());
@@ -48,13 +48,9 @@ public abstract class AbstractEnemy {
         autoAttack.play();
     }
 
-    private void stopAttackAndUnmount() {
-        stopAttack();
-        this.manager.unmount(self);
-    }
-
-    private void stopAttack() {
+    private void stop() {
         autoAttack.stop();
+        this.manager.unmount(self);
     }
 
     public boolean intersects(Bounds bounds) {
@@ -66,15 +62,15 @@ public abstract class AbstractEnemy {
     }
 
     // Returns true if the enemy is killed from this method, false otherwise
-    public boolean processHit() {
+    public boolean handleHit() {
         health--;
 
         if (!isAlive()) {
             manager.addScore(Game.POINTS_PER_KILL);
 
-            stopAttackAndUnmount();
+            stop();
 
-            manager.getSpawner().processKill();
+            manager.getSpawner().handleKill();
 
             return true;
         } else {

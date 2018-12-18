@@ -58,7 +58,7 @@ public class PlayerProjectile {
             if (enemy.intersects(projectileBounds)) {
                 stopAndUnmount();
 
-                boolean dead = enemy.processHit();
+                boolean dead = enemy.handleHit();
 
                 if (dead) {
                     it.remove();

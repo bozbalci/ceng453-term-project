@@ -4,25 +4,13 @@ import com.twentythree.spaceclient.constants.GUI;
 import com.twentythree.spaceclient.game.GameManager;
 
 import com.twentythree.spaceclient.controller.StageManager;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 
-public class GameScene {
-    private Pane pane;
-    private GameManager gameManager;
-    private StageManager stageManager;
-    private Scene scene;
-
-    private GameScene(Pane pane, GameManager manager, Scene scene) {
-        this.pane = pane;
-        this.gameManager = manager;
-        this.scene = scene;
-    }
-
-    private static GameScene instance;
-
-    public static GameScene create(StageManager stageManager) {
+public class GameScene implements IScene {
+    public Scene getScene(StageManager stageManager) {
         Pane pane = new Pane();
         GameManager manager = new GameManager(pane, stageManager.getLevelProvider());
 
@@ -50,20 +38,15 @@ public class GameScene {
         healthTextLabel.relocate(GUI.WINDOW_WIDTH - GUI.LARGE_INSET, GUI.DEFAULT_INSET);
         healthAmountLabel.relocate(GUI.WINDOW_WIDTH - GUI.DEFAULT_INSET, GUI.DEFAULT_INSET);
 
-        instance = new GameScene(pane, manager, new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT));
+        Scene scene = new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
 
-        instance.stageManager = stageManager;
-        // TODO instance.scene.setCursor(Cursor.NONE);
-        instance.scene.setOnMouseMoved(e -> {
+        scene.setCursor(Cursor.NONE);
+        scene.setOnMouseMoved(e -> {
             manager.getPlayer().updatePosition(e.getX());
         });
 
         stageManager.setTitle("Space Shooter");
 
-        return instance;
-    }
-
-    public Scene getScene() {
         return scene;
     }
 }
