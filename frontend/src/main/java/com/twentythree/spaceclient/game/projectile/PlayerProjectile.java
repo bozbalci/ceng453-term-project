@@ -3,48 +3,42 @@ package com.twentythree.spaceclient.game.projectile;
 import com.twentythree.spaceclient.constants.Game;
 import com.twentythree.spaceclient.game.GameManager;
 import com.twentythree.spaceclient.game.enemy.AbstractEnemy;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.geometry.Bounds;
-import javafx.scene.shape.Circle;
-import javafx.util.Duration;
+import javafx.scene.paint.Color;
 
 import java.util.Iterator;
 import java.util.List;
 
-public class PlayerProjectile {
-    private Circle self;
-    private Timeline movement;
-    private GameManager manager;
-
+public class PlayerProjectile extends AbstractProjectile {
     public PlayerProjectile(GameManager manager, double x, double y) {
-        self = new Circle(x, y, Game.PLAYER_PROJECTILE_SIZE);
-        self.setStroke(Game.PLAYER_PROJECTILE_STROKE_COLOR);
-        self.setFill(Game.PLAYER_PROJECTILE_FILL_COLOR);
-
-        this.manager = manager;
-        this.manager.mount(self);
-
-        launch();
+        super(manager, x, y);
     }
 
-    private void launch() {
-        movement = new Timeline(new KeyFrame(Duration.millis(Game.PLAYER_PROJECTILE_UPDATE_INTERVAL),
-                e -> updatePosition()));
-        movement.setCycleCount(Timeline.INDEFINITE);
-        movement.play();
+    @Override
+    double getUpdateInterval() {
+        return Game.PLAYER_PROJECTILE_UPDATE_INTERVAL;
     }
 
-    private void stopAndUnmount() {
-        movement.stop();
-        manager.unmount(self);
+    @Override
+    int getProjectileSize() {
+        return Game.PLAYER_PROJECTILE_SIZE;
     }
 
-    private void updatePosition() {
+    @Override
+    Color getStrokeColor() {
+        return Game.PLAYER_PROJECTILE_STROKE_COLOR;
+    }
+
+    @Override
+    Color getFillColor() {
+        return Game.PLAYER_PROJECTILE_FILL_COLOR;
+    }
+
+    void updatePosition() {
         self.setCenterY(self.getCenterY() - Game.PLAYER_PROJECTILE_UPDATE_INCREMENT);
 
         if (self.getCenterY() <= 0) {
-            stopAndUnmount();
+            stop();
         }
 
         Bounds projectileBounds = self.getBoundsInParent();
@@ -56,7 +50,7 @@ public class PlayerProjectile {
             AbstractEnemy enemy = it.next();
 
             if (enemy.intersects(projectileBounds)) {
-                stopAndUnmount();
+                stop();
 
                 boolean dead = enemy.handleHit();
 

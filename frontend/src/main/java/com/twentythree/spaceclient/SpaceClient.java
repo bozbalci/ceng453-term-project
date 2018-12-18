@@ -13,7 +13,7 @@ public class SpaceClient extends Application {
 
         stageManager.toScene(SceneType.LOGIN_SCENE);
 
-        // stageManager.setNonresizable();
+        stageManager.setNonresizable();
         stageManager.show();
     }
 
