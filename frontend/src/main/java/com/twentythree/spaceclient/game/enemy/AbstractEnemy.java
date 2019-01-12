@@ -24,10 +24,8 @@ public abstract class AbstractEnemy {
     abstract Color getFillColor();
     abstract double getAttackInterval();
 
-    void initialize(GameManager manager) {
-        self = new Rectangle(new Random().nextInt(GUI.WINDOW_WIDTH - GUI.DEFAULT_INSET - Game.ENEMY_SIZE),
-                GUI.DEFAULT_INSET + new Random().nextInt((int) (GUI.LARGE_INSET * GUI.INSET_DEVIATION)),
-                Game.ENEMY_SIZE, Game.ENEMY_SIZE);
+    void initialize(GameManager manager, double xPos, double yPos) {
+        self = new Rectangle(xPos, yPos, Game.ENEMY_SIZE, Game.ENEMY_SIZE);
         self.setStroke(getStrokeColor());
         self.setFill(getFillColor());
 
@@ -62,11 +60,12 @@ public abstract class AbstractEnemy {
     }
 
     // Returns true if the enemy is killed from this method, false otherwise
-    public boolean handleHit() {
+    public boolean handleHit(Boolean isBlank) {
         health--;
 
         if (!isAlive()) {
-            manager.addScore(Game.POINTS_PER_KILL);
+            if (!isBlank)
+                manager.addScore(Game.POINTS_PER_KILL);
 
             stop();
 

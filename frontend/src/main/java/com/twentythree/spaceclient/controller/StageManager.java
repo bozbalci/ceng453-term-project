@@ -11,6 +11,7 @@ public class StageManager {
     private StageManager() {
         levelProvider = new LevelProvider();
         requestController = new HttpRequestController();
+        mpGameController = new MPGameController();
     }
 
     public static StageManager getInstance() {
@@ -20,6 +21,7 @@ public class StageManager {
     private Stage stage;
     private LevelProvider levelProvider;
     private HttpRequestController requestController;
+    private MPGameController mpGameController;
 
     public void setStage(Stage newStage) {
         stage = newStage;
@@ -58,8 +60,14 @@ public class StageManager {
             case VICTORY_SCENE:
                 setScene(new VictoryScene().getScene(this));
                 break;
+            case MATCHMAKING_SCENE:
+                setScene(new MatchmakingScene().getScene(this));
+                break;
             case LEADERBOARD_SCENE:
                 setScene(new LeaderboardScene().getScene(this));
+                break;
+            case ENDGAME_SCENE:
+                setScene(new EndgameScene().getScene(this));
                 break;
         }
     }
@@ -70,6 +78,14 @@ public class StageManager {
 
     public HttpRequestController getRequestController() {
         return requestController;
+    }
+
+    public MPGameController getMpGameController() {
+        return mpGameController;
+    }
+
+    public void submitScore() {
+        requestController.submitScore(levelProvider.getTotalScore().getValue());
     }
 }
 

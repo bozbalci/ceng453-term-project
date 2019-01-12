@@ -38,9 +38,7 @@ public class GameOverScene implements IScene {
 
         stageManager.setTitle("Space Shooter: Game Over!");
 
-        stageManager.getRequestController().submitScore(
-                stageManager.getLevelProvider().getTotalScore().getValue()
-        );
+        stageManager.submitScore();
 
         return new Scene(pane, GUI.WINDOW_WIDTH, GUI.WINDOW_HEIGHT);
     }

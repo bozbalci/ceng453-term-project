@@ -32,7 +32,7 @@ public class GameScene implements IScene {
 
         Label healthTextLabel = new Label("Health: ");
         Label healthAmountLabel = new Label();
-        healthAmountLabel.textProperty().bind(manager.getPlayer().getHealthProperty().asString());
+        healthAmountLabel.textProperty().bind(manager.getLocalPlayer().getHealthProperty().asString());
         pane.getChildren().add(healthTextLabel);
         pane.getChildren().add(healthAmountLabel);
         healthTextLabel.relocate(GUI.WINDOW_WIDTH - GUI.LARGE_INSET, GUI.DEFAULT_INSET);
@@ -43,7 +43,7 @@ public class GameScene implements IScene {
         // TODO Displaying the cursor for the demo, disable later
         // scene.setCursor(Cursor.NONE);
         scene.setOnMouseMoved(e -> {
-            manager.getPlayer().updatePosition(e.getX());
+            manager.getLocalPlayer().updatePosition(e.getX());
         });
 
         stageManager.setTitle("Space Shooter");

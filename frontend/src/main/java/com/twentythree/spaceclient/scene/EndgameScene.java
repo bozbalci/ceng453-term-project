@@ -10,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-public class VictoryScene implements IScene {
+public class EndgameScene implements IScene {
     public Scene getScene(StageManager stageManager) {
         GridPane pane = new GridPane();
 
@@ -19,7 +19,7 @@ public class VictoryScene implements IScene {
         pane.setVgap(GUI.DEFAULT_GAP);
         pane.setPadding(new Insets(GUI.DEFAULT_INSET, GUI.DEFAULT_INSET, GUI.DEFAULT_INSET, GUI.DEFAULT_INSET));
 
-        Label gameOverLabel = new Label("Victory!");
+        Label gameOverLabel = new Label("You have completed the game! Woo!");
         pane.add(gameOverLabel, 1, 1);
 
         Label yourScoreIsTextLabel = new Label("Your score is: ");
@@ -29,19 +29,13 @@ public class VictoryScene implements IScene {
         yourScoreIsAmountLabel.textProperty().bind(stageManager.getLevelProvider().getTotalScore().asString());
         pane.add(yourScoreIsAmountLabel, 2, 2);
 
-        Button nextLevel = new Button("Proceed to Next Level");
-        nextLevel.setOnAction(e -> {
-            stageManager.getLevelProvider().incrementLevel();
-            stageManager.toScene(SceneType.GAME_SCENE);
-        });
-        pane.add(nextLevel, 1, 3);
-
         Button goToMainMenu = new Button("Go to Main Menu");
         goToMainMenu.setOnAction(e -> {
-            stageManager.submitScore();
             StageManager.getInstance().toScene(SceneType.MAIN_MENU_SCENE);
         });
         pane.add(goToMainMenu, 1, 4);
+
+        stageManager.submitScore();
 
         stageManager.setTitle("Space Shooter: Victory!");
 

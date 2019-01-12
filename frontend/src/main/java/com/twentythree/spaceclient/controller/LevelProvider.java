@@ -10,7 +10,7 @@ public class LevelProvider {
     private LongProperty totalScore;
 
     public void reset() {
-        currentLevel = new SimpleIntegerProperty(1);
+        currentLevel = new SimpleIntegerProperty(3);
         totalScore = new SimpleLongProperty(0);
     }
 
@@ -21,15 +21,13 @@ public class LevelProvider {
     public long getEnemyCountForLevel() {
         switch (currentLevel.getValue()) {
             case 1:
-                return 15;
+                return 1;
             case 2:
-                return 30;
+                return 1;
             case 3:
-                return 2000;
-            case 4:
-                return 100;
+                return 1;
             default:
-                return 10000;
+                return 5;
         }
     }
 

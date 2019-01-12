@@ -3,7 +3,9 @@ package com.twentythree.spaceclient.game.projectile;
 import com.twentythree.spaceclient.constants.GUI;
 import com.twentythree.spaceclient.constants.Game;
 import com.twentythree.spaceclient.game.GameManager;
-import com.twentythree.spaceclient.game.Player;
+import com.twentythree.spaceclient.game.player.AbstractPlayer;
+import com.twentythree.spaceclient.game.player.LocalPlayer;
+import com.twentythree.spaceclient.game.player.RemotePlayer;
 import javafx.geometry.Bounds;
 import javafx.scene.paint.Color;
 
@@ -41,13 +43,17 @@ public class EnemyProjectile extends AbstractProjectile {
         }
 
         Bounds projectileBounds = self.getBoundsInParent();
+        LocalPlayer localPlayer = manager.getLocalPlayer();
+        RemotePlayer remotePlayer = manager.getRemotePlayer();
 
-        Player player = manager.getPlayer();
-
-        if (player.intersects(projectileBounds)) {
+        if (localPlayer.intersects(projectileBounds)) {
             stop();
 
-            player.processHit();
+            localPlayer.processHit();
+        }
+
+        if (remotePlayer != null && remotePlayer.intersects(projectileBounds)) {
+            stop();
         }
     }
 }

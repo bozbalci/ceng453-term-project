@@ -25,7 +25,7 @@ public class RapidAttackEnemy extends AbstractEnemy {
         return Game.RAPID_ATTACK_ENEMY_ATTACK_INTERVAL;
     }
 
-    public RapidAttackEnemy(GameManager manager) {
-        initialize(manager);
+    public RapidAttackEnemy(GameManager manager, double x, double y) {
+        initialize(manager, x, y);
     }
 }

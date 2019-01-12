@@ -9,30 +9,12 @@ import javafx.scene.paint.Color;
 import java.util.Iterator;
 import java.util.List;
 
-public class PlayerProjectile extends AbstractProjectile {
-    public PlayerProjectile(GameManager manager, double x, double y) {
+public abstract class AbstractPlayerProjectile extends AbstractProjectile {
+    public AbstractPlayerProjectile(GameManager manager, double x, double y) {
         super(manager, x, y);
     }
 
-    @Override
-    double getUpdateInterval() {
-        return Game.PLAYER_PROJECTILE_UPDATE_INTERVAL;
-    }
-
-    @Override
-    int getProjectileSize() {
-        return Game.PLAYER_PROJECTILE_SIZE;
-    }
-
-    @Override
-    Color getStrokeColor() {
-        return Game.PLAYER_PROJECTILE_STROKE_COLOR;
-    }
-
-    @Override
-    Color getFillColor() {
-        return Game.PLAYER_PROJECTILE_FILL_COLOR;
-    }
+    protected abstract Boolean isBlank();
 
     void updatePosition() {
         self.setCenterY(self.getCenterY() - Game.PLAYER_PROJECTILE_UPDATE_INCREMENT);
@@ -52,7 +34,7 @@ public class PlayerProjectile extends AbstractProjectile {
             if (enemy.intersects(projectileBounds)) {
                 stop();
 
-                boolean dead = enemy.handleHit();
+                boolean dead = enemy.handleHit(isBlank());
 
                 if (dead) {
                     it.remove();

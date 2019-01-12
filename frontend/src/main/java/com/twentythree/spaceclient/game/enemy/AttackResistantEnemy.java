@@ -25,7 +25,7 @@ public class AttackResistantEnemy extends AbstractEnemy {
         return Game.ATTACK_RESISTANT_ENEMY_ATTACK_INTERVAL;
     }
 
-    public AttackResistantEnemy(GameManager manager) {
-        initialize(manager);
+    public AttackResistantEnemy(GameManager manager, double x, double y) {
+        initialize(manager, x, y);
     }
 }

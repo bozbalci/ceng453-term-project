@@ -25,7 +25,7 @@ public class StandardEnemy extends AbstractEnemy {
         return Game.ENEMY_ATTACK_INTERVAL;
     }
 
-    public StandardEnemy(GameManager manager) {
-        initialize(manager);
+    public StandardEnemy(GameManager manager, double x, double y) {
+        initialize(manager, x, y);
     }
 }
