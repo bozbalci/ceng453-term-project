@@ -60,13 +60,11 @@ public class Session implements Runnable {
                 if (cpOne.get("type").equals(Network.CMD_POSITION) ||
                     cpOne.get("type").equals(Network.CMD_DEATH)) {
                     toSpTwo.writeObject(inpOne);
-                    System.out.println("Sent to P2: " + inpOne);
                 }
 
                 if (cpTwo.get("type").equals(Network.CMD_POSITION) ||
                     cpTwo.get("type").equals(Network.CMD_DEATH)) {
                     toSpOne.writeObject(inpTwo);
-                    System.out.println("Sent to P1: " + inpTwo);
                 }
 
                 pOneDead = cpOne.get("type").equals(Network.CMD_DEATH);

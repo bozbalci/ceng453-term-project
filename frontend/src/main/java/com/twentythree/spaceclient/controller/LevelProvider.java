@@ -18,19 +18,6 @@ public class LevelProvider {
         currentLevel.setValue(currentLevel.getValue() + 1);
     }
 
-    public long getEnemyCountForLevel() {
-        switch (currentLevel.getValue()) {
-            case 1:
-                return 1;
-            case 2:
-                return 1;
-            case 3:
-                return 1;
-            default:
-                return 5;
-        }
-    }
-
     public IntegerProperty getCurrentLevel() {
         return currentLevel;
     }

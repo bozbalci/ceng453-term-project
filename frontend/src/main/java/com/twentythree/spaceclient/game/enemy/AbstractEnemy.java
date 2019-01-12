@@ -69,7 +69,7 @@ public abstract class AbstractEnemy {
 
             stop();
 
-            manager.getSpawner().handleKill();
+            manager.getSpawner().processKill();
 
             return true;
         } else {

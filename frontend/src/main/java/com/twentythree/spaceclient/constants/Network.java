@@ -5,7 +5,7 @@ public class Network {
     public static final String SERVER_HOST = "localhost";
     public static final Integer SERVER_PORT = 7777;
 
-    public static final Integer TICK_RATE = 24;
+    public static final Integer TICK_RATE = 120;
 
     public static final Long CMD_START = 0L;
     public static final Long CMD_POSITION = 1L;

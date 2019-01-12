@@ -3,8 +3,6 @@ package com.twentythree.spaceclient.constants;
 import javafx.scene.paint.Color;
 
 public class Game {
-    public static final double ENEMY_SPAWN_INTERVAL = 0.40;
-
     public static final int ENEMY_MAX_HEALTH = 2;
     public static final double ENEMY_ATTACK_INTERVAL = 1.75;
 
@@ -43,7 +41,6 @@ public class Game {
     public static final long POINTS_PER_KILL = 50;
 
     // Custom enemy types
-
     public static final int ATTACK_RESISTANT_ENEMY_MAX_HEALTH = 5;
     public static final double ATTACK_RESISTANT_ENEMY_ATTACK_INTERVAL = 2.25;
     public static final Color ATTACK_RESISTANT_ENEMY_FILL_COLOR = Color.CORAL;
@@ -53,9 +50,6 @@ public class Game {
     public static final double RAPID_ATTACK_ENEMY_ATTACK_INTERVAL = 0.65;
     public static final Color RAPID_ATTACK_ENEMY_FILL_COLOR = Color.CRIMSON;
     public static final Color RAPID_ATTACK_ENEMY_STROKE_COLOR = Color.BLACK;
-
-    public static final double RAPID_ATTACK_SPAWN_CHANCE = 0.25;
-    public static final double ATTACK_RESISTANT_SPAWN_CHANCE = 0.50;
 
     public static final Integer MULTIPLAYER_LEVEL_INDEX = 4;
 }

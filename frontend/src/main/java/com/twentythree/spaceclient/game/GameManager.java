@@ -30,7 +30,7 @@ public class GameManager {
         this.levelProvider = levelProvider;
 
         localPlayer = new LocalPlayer(this);
-        spawner = new EnemySpawner(this, levelProvider.getEnemyCountForLevel());
+        spawner = new EnemySpawner(this);
 
         scoreProperty = new SimpleLongProperty(levelProvider.getTotalScore().getValue());
         isFinished = false;
@@ -45,10 +45,7 @@ public class GameManager {
     }
 
     public void unmount(Node node) {
-        boolean removed = mountedPane.getChildren().remove(node);
-
-        if (!removed)
-            System.out.println("something is very, very wrong");
+        mountedPane.getChildren().remove(node);
     }
 
     public LocalPlayer getLocalPlayer() {
@@ -74,6 +71,7 @@ public class GameManager {
     private void endAndRedirect(SceneType targetScene) {
         if (!isFinished) {
             isFinished = true;
+            mountedPane.getChildren().clear();
 
             if (isMPLevel()) {
                 stopSync();
