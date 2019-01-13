@@ -59,7 +59,7 @@ public class HttpRequestController {
         }
     }
 
-    public void register(HttpBasicAuthContainer auth) {
+    public boolean register(HttpBasicAuthContainer auth) {
         this.auth = auth;
 
         try {
@@ -68,8 +68,13 @@ public class HttpRequestController {
                     .routeParam("username", auth.getUsername())
                     .routeParam("password", auth.getPassword())
                     .asString();
+
+            System.out.println(response.getBody());
+            System.out.println(Long.valueOf(response.getBody()));
+            return Long.valueOf(response.getBody()) != -1;
         } catch (UnirestException e) {
             // Do nothing.
+            return false;
         }
     }
 

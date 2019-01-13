@@ -85,8 +85,13 @@ public class LoginScene implements IScene {
                 return;
             }
 
-            stageManager.getRequestController().register(new HttpBasicAuthContainer(username, password));
-            stageManager.toScene(SceneType.MAIN_MENU_SCENE);
+            boolean registered = stageManager.getRequestController().register(
+                    new HttpBasicAuthContainer(username, password));
+            if (registered) {
+                stageManager.toScene(SceneType.MAIN_MENU_SCENE);
+            } else {
+                errorLabel.setText(Errors.RegisterError);
+            }
         });
 
         HBox hBox = new HBox(10);

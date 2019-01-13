@@ -20,7 +20,7 @@ public class Player  implements AccountInterface {
     long id;
 
     @Column(name = "username", unique = true)
-    String username;
+    public String username;
 
     @Column(name = "password")
     @JsonIgnore

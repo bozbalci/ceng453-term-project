@@ -22,6 +22,13 @@ public class PlayerController {
     @PostMapping("/player")
     long createPlayer(@RequestParam("username") String username,
                         @RequestParam("password") String password) {
+        List<Player> players = getAllPlayers();
+        for (int i = 0; i < players.size(); i++) {
+            if (players.get(i).username.equals(username)) {
+                return -1;
+            }
+        }
+
         String encodedPassword = passwordEncoder.encode(password);
 
         final Player created = playerRepository.save(new Player(username, encodedPassword));
