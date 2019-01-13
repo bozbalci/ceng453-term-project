@@ -14,6 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+import com.twentythree.spaceclient.constants.Errors;
+
 public class LoginScene implements IScene {
     public Scene getScene(StageManager stageManager) {
         GridPane pane = new GridPane();
@@ -22,6 +24,12 @@ public class LoginScene implements IScene {
         pane.setHgap(GUI.DEFAULT_GAP);
         pane.setVgap(GUI.DEFAULT_GAP);
         pane.setPadding(new Insets(GUI.DEFAULT_INSET, GUI.DEFAULT_INSET, GUI.DEFAULT_INSET, GUI.DEFAULT_INSET));
+
+        Label errorLabel = new Label();
+        errorLabel.setTextFill(Errors.ErrorTextColor);
+        errorLabel.setPrefWidth(200);
+        errorLabel.setWrapText(true);
+        pane.add(errorLabel, 1, 5);
 
         Label usernameLabel = new Label("Username: ");
         pane.add(usernameLabel, 0, 1);
@@ -40,7 +48,13 @@ public class LoginScene implements IScene {
             String username = usernameField.getText();
             String password = passwordField.getText();
 
-            if (!(username.length() > 0 && password.length() > 0)) {
+            if (!(username.length() > 0 )) {
+                errorLabel.setText(Errors.UsernameError);
+                return;
+            }
+
+            if (!(password.length() > 0)) {
+                errorLabel.setText(Errors.PasswordError);
                 return;
             }
 
@@ -51,6 +65,7 @@ public class LoginScene implements IScene {
                 stageManager.toScene(SceneType.MAIN_MENU_SCENE);
             } else {
                 // Display error message
+                errorLabel.setText(Errors.AuthenticationError);
                 System.out.println("Could not log in!");
             }
         });
@@ -59,6 +74,16 @@ public class LoginScene implements IScene {
         register.setOnAction(e -> {
             String username = usernameField.getText();
             String password = passwordField.getText();
+
+            if (!(username.length() > 0 )) {
+                errorLabel.setText(Errors.UsernameError);
+                return;
+            }
+
+            if (!(password.length() > 0)) {
+                errorLabel.setText(Errors.PasswordError);
+                return;
+            }
 
             stageManager.getRequestController().register(new HttpBasicAuthContainer(username, password));
             stageManager.toScene(SceneType.MAIN_MENU_SCENE);
