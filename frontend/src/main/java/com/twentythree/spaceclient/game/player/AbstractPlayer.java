@@ -12,6 +12,7 @@ public abstract class AbstractPlayer {
     protected Rectangle self;
     protected Timeline autoAttack;
     protected GameManager manager;
+    public boolean isDead = false;
 
     public AbstractPlayer(GameManager manager) {
         self = new Rectangle(GUI.WINDOW_WIDTH / 2.0, GUI.WINDOW_HEIGHT - GUI.LARGE_INSET,
@@ -43,6 +44,7 @@ public abstract class AbstractPlayer {
     protected abstract void startAttack();
 
     public void stopAndUnmount() {
+        isDead = true;
         autoAttack.stop();
         manager.unmount(self);
     }

@@ -46,13 +46,13 @@ public class EnemyProjectile extends AbstractProjectile {
         LocalPlayer localPlayer = manager.getLocalPlayer();
         RemotePlayer remotePlayer = manager.getRemotePlayer();
 
-        if (localPlayer.intersects(projectileBounds)) {
+        if (!localPlayer.isDead && localPlayer.intersects(projectileBounds)) {
             stop();
 
             localPlayer.processHit();
         }
 
-        if (remotePlayer != null && remotePlayer.intersects(projectileBounds)) {
+        if (remotePlayer != null && !remotePlayer.isDead && remotePlayer.intersects(projectileBounds)) {
             stop();
         }
     }

@@ -24,7 +24,7 @@ public class LocalPlayer extends AbstractPlayer {
 
         if (!isAlive()) {
             stopAndUnmount();
-
+            isDead = true;
             manager.onLocalPlayerDead();
         }
     }
